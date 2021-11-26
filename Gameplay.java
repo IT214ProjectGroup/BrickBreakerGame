@@ -1,11 +1,6 @@
-// import java.util.*;
 import java.awt.event.*;
-
-import javax.swing.*;
-
 import java.awt.*;
-
-// import javax.swing.*;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener 
@@ -25,8 +20,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 	private int ballXdir = -1;
 	private int ballYdir = -2;
 	
+	private int pauseT = 0 ;// new 
 	private MapGenerator map;
-	
+
 	public Gameplay()
 	{		
 		map = new MapGenerator(4, 12);
@@ -41,7 +37,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 	{    		
 		// background
 		g.setColor(Color.black);
-		g.fillRect(1, 1, 692, 592);
+		g.fillRect(1, 1, 692, 580);
 		
 		// drawing map
 		map.draw((Graphics2D) g);
@@ -100,6 +96,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 
 	public void keyPressed(KeyEvent e) 
 	{
+
+		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{        
 			if(playerX >= 600)
@@ -127,22 +125,40 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		{          
 			if(!play)
 			{
-				play = true;
-				ballposX = 120;
-				ballposY = 350;
-				ballXdir = -1;
-				ballYdir = -2;
-				playerX = 310;
-				score = 0;
-				totalBricks = 21;
-				map = new MapGenerator(3, 7);
-				
-				repaint();
+				Restart(); // new 
 			}
         }		
 	}
 
-	public void keyReleased(KeyEvent e) {}
+	// new 
+	public void pause(){
+		if (pauseT % 2 == 0 ){
+			timer.stop();
+		}
+		else
+		timer.start();
+
+		pauseT++;
+	}
+
+	// new 
+	public void Restart(){
+
+		play = true;
+		ballposX = 120;
+		ballposY = 350;
+		ballXdir = -1;
+		ballYdir = -2;
+		playerX = 310;
+		score = 0;
+		totalBricks = 21;
+		map = new MapGenerator(3, 7);
+		
+		repaint();
+	}
+
+	public void keyReleased(KeyEvent e) {
+	}
 	public void keyTyped(KeyEvent e) {}
 	
 	public void moveRight()
