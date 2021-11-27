@@ -31,12 +31,12 @@ public class MapGenerator
 			{
 				if(map[i][j] > 0)
 				{
-					g.setColor(Color.white);
+					g.setColor(Color.DARK_GRAY);
 					g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 					
 					// this is just to show separate brick, game can still run without it
 					g.setStroke(new BasicStroke(3));
-					g.setColor(Color.black);
+					g.setColor(Color.LIGHT_GRAY);
 					g.drawRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);				
 				}
 			}

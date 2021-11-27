@@ -3,7 +3,7 @@ import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Gameplay extends JPanel implements KeyListener, ActionListener 
+public class Gameplay extends JPanel implements KeyListener, ActionListener ,MouseMotionListener
 {
 	private boolean play = false;
 	private int score = 0;
@@ -13,7 +13,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 	private Timer timer;
 	private int delay=8;
 	
-	private int playerX = 310;
+	private int paddleX = 310;
 	
 	private int ballposX = 120;
 	private int ballposY = 350;
@@ -26,8 +26,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 	public Gameplay()
 	{		
 		map = new MapGenerator(4, 12);
-		addKeyListener(this);
-		setFocusable(true);
+	 //Moving the paddle using the keys
+		// addKeyListener(this);
+		// setFocusable(true);
+
+     //Moving the paddle using the Mouse
+		addMouseMotionListener(this);
+		setFocusable(false);
+
 		setFocusTraversalKeysEnabled(false);
         timer=new Timer(delay,this);
 		timer.start();
@@ -36,29 +42,29 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 	public void paint(Graphics g)
 	{    		
 		// background
-		g.setColor(Color.black);
+		g.setColor(Color.lightGray);
 		g.fillRect(1, 1, 692, 580);
 		
 		// drawing map
 		map.draw((Graphics2D) g);
 		
 		// borders
-		g.setColor(Color.yellow);
+		g.setColor(Color.cyan);
 		g.fillRect(0, 0, 3, 592);
 		g.fillRect(0, 0, 692, 3);
 		g.fillRect(691, 0, 3, 592);
 		
 		// the scores 		
-		g.setColor(Color.white);
+		g.setColor(Color.BLACK);
 		g.setFont(new Font("serif",Font.BOLD, 25));
-		g.drawString(""+score, 590,30);
+		g.drawString("Score:"+score,10,30);
 		
 		// the paddle
-		g.setColor(Color.green);
-		g.fillRect(playerX, 550, 100, 8);
+		g.setColor(Color.BLUE);
+		g.fillRect(paddleX, 550, 100, 8);
 		
 		// the ball
-		g.setColor(Color.yellow);
+		g.setColor(Color.RED);
 		g.fillOval(ballposX, ballposY, 20, 20);
 	
 		// when you won the game
@@ -89,20 +95,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
              g.setColor(Color.RED);
              g.setFont(new Font("serif",Font.BOLD, 20));           
              g.drawString("Press (Enter) to Restart", 230,350);        
-        }
-		
+        }		
 		g.dispose();
 	}	
 
 	public void keyPressed(KeyEvent e) 
 	{
-
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{        
-			if(playerX >= 600)
+			if(paddleX >= 600)
 			{
-				playerX = 600;
+				paddleX = 600;
 			}
 			else
 			{
@@ -112,9 +116,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{          
-			if(playerX < 10)
+			if(paddleX < 10)
 			{
-				playerX = 10;
+				paddleX = 10;
 			}
 			else
 			{
@@ -125,10 +129,26 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		{          
 			if(!play)
 			{
-				Restart(); // new 
+				Restart(); // new // put it in a function for reusability
 			}
-        }		
+        }	
 	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) { // Drag the paddle 
+		paddleX = e.getX();
+		if(paddleX < 10)
+		paddleX = 10;
+		else if (paddleX >= 600)
+		paddleX = 600;	
+	}
+	public void mouseMoved(MouseEvent e) { // dedect the mouse location 
+		paddleX = e.getX();   
+		if(paddleX < 10)
+		paddleX = 10;
+		else if (paddleX >= 600)
+		paddleX = 600;	
+		}
 
 	// new 
 	public void pause(){
@@ -140,8 +160,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 
 		pauseT++;
 	}
-
-	// new 
 	public void Restart(){
 
 		play = true;
@@ -149,28 +167,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		ballposY = 350;
 		ballXdir = -1;
 		ballYdir = -2;
-		playerX = 310;
+		paddleX = 310;
 		score = 0;
 		totalBricks = 48;
 		map = new MapGenerator(4, 12);
 		
 		repaint();
 	}
-
-	public void keyReleased(KeyEvent e) {
-	}
+    // useless but needed 
+	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
 	
 	public void moveRight()
 	{
 		play = true;
-		playerX+=20;	
+		paddleX+=20;	
 	}
 	
 	public void moveLeft()
 	{
 		play = true;
-		playerX-=20;	 	
+		paddleX-=20;	 	
 	}
 	
 	public void actionPerformed(ActionEvent e) 
@@ -178,17 +195,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		timer.start();
 		if(play)
 		{			
-			if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX, 550, 30, 8)))
+			if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(paddleX, 550, 30, 8)))
 			{
 				ballYdir = -ballYdir;
 				ballXdir = -2;
 			}
-			else if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX + 70, 550, 30, 8)))
+			else if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(paddleX + 70, 550, 30, 8)))
 			{
 				ballYdir = -ballYdir;
 				ballXdir = ballXdir + 1;
 			}
-			else if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX + 30, 550, 40, 8)))
+			else if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(paddleX + 30, 550, 40, 8)))
 			{
 				ballYdir = -ballYdir;
 			}
@@ -247,8 +264,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 			if(ballposX > 670)
 			{
 				ballXdir = -ballXdir;
-			}		
-			
+			}				
 			repaint();		
 		}
 	}
