@@ -46,9 +46,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		// background
 		g.setColor(Color.getColor("0, 0, 0, 71"));
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("sublime.gif");
+		ImageIcon background = new ImageIcon("sky.gif");
 		Image img = background.getImage();
-		g.drawImage(img, 0, 0, 740, 605, null);
+		g.drawImage(img, 0, 0, 700, 560, null);
 
 		// drawing map
 		map.draw((Graphics2D) g);
@@ -75,7 +75,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		g.setColor(Color.WHITE);
 		g.fillOval(ballposX, ballposY, 20, 20);
 		((Graphics2D) g).setStroke(new BasicStroke(3));
-		((Graphics2D) g).setColor(Color.ORANGE);
+		((Graphics2D) g).setColor(new Color(249,248,113));
 		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
 
 		// when you won the game

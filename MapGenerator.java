@@ -41,7 +41,7 @@ public class MapGenerator {
 					g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 				     }
                     else 	//first color		
-					g.setColor(new Color(74, 109, 124));
+					g.setColor(Color.WHITE);
 					g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 
 					// this is just to show separate brick, game can still run without it
