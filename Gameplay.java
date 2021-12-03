@@ -22,8 +22,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	int lose = 0;
 
 	//map rows and colomns 
-	int mapR = 3;
-	int mapC = 7; 
+	int mapR = 8;
+	int mapC = 10; 
 
     //for changing the pause btn state 
 	private int pauseT = 0;
@@ -50,7 +50,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		// background
 		g.setColor(Color.white);
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("BG.gif");
+		ImageIcon background = new ImageIcon("art.gif");
 		Image img = background.getImage();
 		g.drawImage(img, 0, 0, 740, 605, null);
 
@@ -58,7 +58,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		map.draw((Graphics2D) g);
 
 		// borders
-		g.setColor(Color.cyan);
+		g.setColor(new Color(158, 216, 236));
 		g.fillRect(0, 0, 3, 592);
 		g.fillRect(0, 0, 692, 3);
 		g.fillRect(691, 0, 3, 592);
@@ -69,12 +69,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		g.drawString("Score:" + score, 10, 30);
 
 		// the paddle
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(164, 219, 235));
 		g.fillRect(paddleX, 550, 100, 8);
 
 		// the ball
-		g.setColor(Color.RED);
+		g.setColor(Color.WHITE);
 		g.fillOval(ballposX, ballposY, 20, 20);
+		((Graphics2D) g).setStroke(new BasicStroke(3));
+		((Graphics2D) g).setColor(Color.ORANGE);
+		((Graphics2D) g) .drawOval(ballposX, ballposY, 20, 20);
 
 		// when you won the game
 		if (totalBricks <= 0) {
