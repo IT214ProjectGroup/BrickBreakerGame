@@ -46,7 +46,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		// background
 		g.setColor(Color.getColor("0, 0, 0, 71"));
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("art.gif");
+		ImageIcon background = new ImageIcon("sublime.gif");
 		Image img = background.getImage();
 		g.drawImage(img, 0, 0, 740, 605, null);
 

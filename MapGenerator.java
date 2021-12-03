@@ -46,7 +46,8 @@ public class MapGenerator {
 
 					// this is just to show separate brick, game can still run without it
 					g.setStroke(new BasicStroke(3));
-					g.setColor(new Color(75, 75, 75));
+					// g.setColor(new Color(75, 75, 75));
+					g.setColor(Color.BLACK);
 					g.drawRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 				}
 			}
