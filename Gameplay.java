@@ -44,9 +44,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 	public void paint(Graphics g) {
 		// background
-		g.setColor(Color.getColor("0, 0, 0, 71"));
+		g.setColor(Color.black);
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("sky.gif");
+		ImageIcon background = new ImageIcon("wonder.gif");
 		Image img = background.getImage();
 		g.drawImage(img, 0, 0, 700, 560, null);
 
@@ -54,42 +54,42 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		map.draw((Graphics2D) g);
 
 		// borders
-		g.setColor(new Color(158, 216, 236));
+		g.setColor(new Color(177,168,185));
 		g.fillRect(0, 0, 3, 592);
 		g.fillRect(0, 0, 692, 3);
 		g.fillRect(683, 0, 3, 592);
 
 		// the scores
-		g.setColor(Color.black);
+		g.setColor(new Color(177,168,185));
 		g.setFont(new Font("serif", Font.BOLD, 25));
 		g.drawString("Score:" + score, 10, 30);
 
 		// the paddle
 		g.setColor(Color.white);
 		g.fillRect(paddleX, 550, 100, 10);
-		((Graphics2D) g).setStroke(new BasicStroke(4));
-		((Graphics2D) g).setColor(new Color(164, 219, 235));
+		((Graphics2D) g).setStroke(new BasicStroke(3));
+		((Graphics2D) g).setColor(new Color(32, 7, 73));
 		((Graphics2D) g).drawRect(paddleX, 550, 100, 8);
 
 		// the ball
 		g.setColor(Color.WHITE);
 		g.fillOval(ballposX, ballposY, 20, 20);
-		((Graphics2D) g).setStroke(new BasicStroke(3));
-		((Graphics2D) g).setColor(new Color(249,248,113));
+		((Graphics2D) g).setStroke(new BasicStroke(4));
+		((Graphics2D) g).setColor(Color.RED);
 		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
+		((Graphics2D) g).setStroke(new BasicStroke(3));
+		((Graphics2D) g).setColor(new Color(244,180,73));
+		((Graphics2D) g).drawOval(ballposX-1, ballposY-1, 25, 25);
 
 		// when you won the game
 		if (totalBricks <= 0) {
 			play = false;
 			ballXdir = 0;
 			ballYdir = 0;
-			g.setColor(Color.RED);
+			g.setColor(new Color(79,251,223));
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("You Won, Scores: " + score, 190, 400);
-
-			// g.setColor(Color.RED);
-			// g.setFont(new Font("serif", Font.BOLD, 20));
-			// g.drawString("Press (Enter) to Restart", 230, 350);
+			g.drawString("You Won", 280, 350);
+			g.drawString("Scores: " + score, 290, 400);
 		}
 
 		// when you lose the game
@@ -97,13 +97,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			play = false;
 			ballXdir = 0;
 			ballYdir = 0;
-			g.setColor(Color.RED);
+			g.setColor(new Color(223,0,0));
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("Game Over, Scores: " + score, 190, 400);
-
-			// g.setColor(Color.RED);
-			// g.setFont(new Font("serif", Font.BOLD, 20));
-			// g.drawString("Press (Enter) to Restart", 230, 350);
+			g.drawString("Game Over", 280, 350);
+			g.drawString("Scores: " + score, 290, 400);
 		}
 		g.dispose();
 	}
@@ -214,7 +211,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 						if (ballRect.intersects(brickRect)) {
 							if (map.iGreeen == i && map.jGreen == j) {
-								score += 400;
+								score += 1000;
 								map.setBrickValue(0, 0, 0);
 								totalBricks = 0;
 							} else if (map.iRed == i && map.jRed == j) {

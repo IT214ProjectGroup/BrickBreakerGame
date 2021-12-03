@@ -32,12 +32,12 @@ public class MapGenerator {
 			for (int j = 0; j < map[0].length; j++) {
 				if (map[i][j] > 0) {
 					if (i == iGreeen && j == jGreen)
-						g.setColor(Color.green);
+						g.setColor(new Color(79,251,223));
 					else if (i == iRed && j == jRed)
-						g.setColor(Color.red);
+						g.setColor(new Color(205,63,44));
 					//change the color after one die 
 					else if (map[i][j] >= 1 && map[i][j] != map[iGreeen][jGreen] && map[i][j] !=map[iRed][jRed]){
-					g.setColor(new Color(195, 239, 249));
+					g.setColor(new Color(177,168,185));
 					g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 				     }
                     else 	//first color		
@@ -46,7 +46,6 @@ public class MapGenerator {
 
 					// this is just to show separate brick, game can still run without it
 					g.setStroke(new BasicStroke(3));
-					// g.setColor(new Color(75, 75, 75));
 					g.setColor(Color.BLACK);
 					g.drawRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 				}
