@@ -33,10 +33,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	public Gameplay() {
 		map = new MapGenerator(mapR, mapC);
 
-        //Moving the paddle using the keys
-		// addKeyListener(this);
-		// setFocusable(true);
-
 		// Moving the paddle using the Mouse
 		addMouseMotionListener(this);
 		setFocusable(false);
@@ -48,7 +44,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 	public void paint(Graphics g) {
 		// background
-		g.setColor(Color.white);
+		g.setColor(Color.getColor("0, 0, 0, 71"));
 		g.fillRect(1, 1, 692, 580);
 		ImageIcon background = new ImageIcon("art.gif");
 		Image img = background.getImage();
@@ -90,13 +86,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 			g.setColor(Color.RED);
 			g.setFont(new Font("serif", Font.BOLD, 20));
-			g.drawString("Press (Enter) to Restart", 230, 350);
+			// g.drawString("Press (Enter) to Restart", 230, 350);
 		}
 
 		// when you lose the game
 		if (ballposY > 570 || lose == 1) {
-			// if (score == -1)
-			// 	score = 0;
 			play = false;
 			ballXdir = 0;
 			ballYdir = 0;
@@ -106,7 +100,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 			g.setColor(Color.RED);
 			g.setFont(new Font("serif", Font.BOLD, 20));
-			g.drawString("Press (Enter) to Restart", 230, 350);
+			// g.drawString("Press (Enter) to Restart", 230, 350);
 		}
 		g.dispose();
 	}
@@ -172,7 +166,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		score = 0;
 		totalBricks = 48;
 		map = new MapGenerator(mapR, mapC);
-
+		lose = 0;
 		repaint();
 	}
 
@@ -218,8 +212,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 						if (ballRect.intersects(brickRect)) {
 							if (map.iGreeen == i && map.jGreen == j) {
-								score += totalBricks * 5;
-								map = new MapGenerator(1, 1);
+								score += 400;
 								map.setBrickValue(0, 0, 0);
 								totalBricks = 0;
 							} else if (map.iRed == i && map.jRed == j) {
