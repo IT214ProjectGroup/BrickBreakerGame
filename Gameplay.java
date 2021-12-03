@@ -34,8 +34,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		map = new MapGenerator(mapR, mapC);
 
 		// Moving the paddle using the Mouse
-		addMouseMotionListener(this);
-		setFocusable(false);
+	    	addMouseMotionListener(this);
+	    	setFocusable(false);
 
 		setFocusTraversalKeysEnabled(false);
 		timer = new Timer(delay, this);
@@ -65,15 +65,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		g.drawString("Score:" + score, 10, 30);
 
 		// the paddle
-		g.setColor(new Color(164, 219, 235));
-		g.fillRect(paddleX, 550, 100, 8);
+		g.setColor(Color.white);
+		g.fillRect(paddleX, 550, 100, 10);
+		((Graphics2D) g).setStroke(new BasicStroke(4));
+		((Graphics2D) g).setColor(new Color(164, 219, 235));
+		((Graphics2D) g).drawRect(paddleX, 550, 100, 8);
 
 		// the ball
 		g.setColor(Color.WHITE);
 		g.fillOval(ballposX, ballposY, 20, 20);
 		((Graphics2D) g).setStroke(new BasicStroke(3));
 		((Graphics2D) g).setColor(Color.ORANGE);
-		((Graphics2D) g) .drawOval(ballposX, ballposY, 20, 20);
+		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
 
 		// when you won the game
 		if (totalBricks <= 0) {
@@ -82,10 +85,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			ballYdir = 0;
 			g.setColor(Color.RED);
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("You Won, Scores: " + score, 190, 300);
+			g.drawString("You Won, Scores: " + score, 190, 400);
 
-			g.setColor(Color.RED);
-			g.setFont(new Font("serif", Font.BOLD, 20));
+			// g.setColor(Color.RED);
+			// g.setFont(new Font("serif", Font.BOLD, 20));
 			// g.drawString("Press (Enter) to Restart", 230, 350);
 		}
 
@@ -96,10 +99,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			ballYdir = 0;
 			g.setColor(Color.RED);
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("Game Over, Scores: " + score, 190, 300);
+			g.drawString("Game Over, Scores: " + score, 190, 400);
 
-			g.setColor(Color.RED);
-			g.setFont(new Font("serif", Font.BOLD, 20));
+			// g.setColor(Color.RED);
+			// g.setFont(new Font("serif", Font.BOLD, 20));
 			// g.drawString("Press (Enter) to Restart", 230, 350);
 		}
 		g.dispose();
@@ -156,7 +159,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	}
 
 	public void Restart() {
-
 		play = true;
 		ballposX = 120;
 		ballposY = 350;
@@ -164,7 +166,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		ballYdir = -2;
 		paddleX = 310;
 		score = 0;
-		totalBricks = 48;
+		totalBricks = mapC * mapR;
 		map = new MapGenerator(mapR, mapC);
 		lose = 0;
 		repaint();
