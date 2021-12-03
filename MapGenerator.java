@@ -20,7 +20,7 @@ public class MapGenerator {
 		}
 
 		brickWidth = 540 / col;
-		brickHeight = 250 / row;
+		brickHeight = 200 / row;
 		iRed = ran.nextInt(map.length);
 		jRed = ran.nextInt(map[0].length);
 		iGreeen = ran.nextInt(map.length);
@@ -40,7 +40,7 @@ public class MapGenerator {
 					g.setColor(new Color(177,168,185));
 					g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 				     }
-                    else 	//first color		
+                    else 	//first color of bricks		
 					g.setColor(Color.WHITE);
 					g.fillRect(j * brickWidth + 80, i * brickHeight + 50, brickWidth, brickHeight);
 

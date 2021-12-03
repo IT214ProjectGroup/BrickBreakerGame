@@ -19,11 +19,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	private int ballposY = 350;
 	private int ballXdir = -1;
 	private int ballYdir = -2;
+
 	int lose = 0;
 
 	//map rows and colomns 
-	int mapR = 8;
-	int mapC = 10; 
+	int mapR = 7;
+	int mapC = 9; 
 
     //for changing the pause btn state 
 	private int pauseT = 0;
@@ -48,7 +49,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		g.fillRect(1, 1, 692, 580);
 		ImageIcon background = new ImageIcon("wonder.gif");
 		Image img = background.getImage();
-		g.drawImage(img, 0, 0, 700, 560, null);
+		g.drawImage(img, 0, 0, 700, 600, null);
 
 		// drawing map
 		map.draw((Graphics2D) g);
@@ -75,11 +76,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		g.setColor(Color.WHITE);
 		g.fillOval(ballposX, ballposY, 20, 20);
 		((Graphics2D) g).setStroke(new BasicStroke(4));
-		((Graphics2D) g).setColor(Color.RED);
-		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
-		((Graphics2D) g).setStroke(new BasicStroke(3));
 		((Graphics2D) g).setColor(new Color(244,180,73));
-		((Graphics2D) g).drawOval(ballposX-1, ballposY-1, 25, 25);
+		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
 
 		// when you won the game
 		if (totalBricks <= 0) {
@@ -124,25 +122,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (!play) {
-				Restart(); // new // put it in a function for reusability
+				Restart(); 
+				// put it in a function for reusability
 			}
 		}
 	}
+	// Drag the paddle
    @Override
-	public void mouseDragged(MouseEvent e) { // Drag the paddle
+	public void mouseDragged(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
 			paddleX = 10;
 		else if (paddleX >= 600)
 			paddleX = 600;
 	}
-
-	public void mouseMoved(MouseEvent e) { // dedect the mouse location
+// dedect the mouse location
+	public void mouseMoved(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
 			paddleX = 10;
 		else if (paddleX >= 600)
-			paddleX = 600;
+			paddleX = 580;
 	}
 
 	// pause btn fun
