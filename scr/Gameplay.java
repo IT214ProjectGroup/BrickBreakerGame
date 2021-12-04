@@ -1,4 +1,4 @@
-package scr;
+// package scr;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -49,10 +49,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	
 	public Gameplay() {
 		map = new MapGenerator(mapR, mapC);
+   //Moving the paddle using the keys
+		addKeyListener(this);
+		setFocusable(true);
 
 		// Moving the paddle using the Mouse
-	    	addMouseMotionListener(this);
-	    	setFocusable(false);
+	    	// addMouseMotionListener(this);
+	    	// setFocusable(false);
 
 		setFocusTraversalKeysEnabled(false);
 		timer = new Timer(delay, this);
@@ -63,7 +66,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		// background
 		g.setColor(Color.black);
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("wonder.gif");
+		ImageIcon background = new ImageIcon("image/wonder.gif");
 		Image img = background.getImage();
 		g.drawImage(img, 0, 0, 700, 600, null);
 
@@ -109,6 +112,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("You Won", 280, 350);
 			g.drawString("Scores: " + score, 290, 400);
+			g.drawString("press E for easy & H for hard", 220, 450);
 			}
 			try {
 				AudioWon();
@@ -126,6 +130,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("Game Over", 280, 350);
 			g.drawString("Scores: " + score, 290, 400);
+			g.drawString("press E for easy & H for hard", 220, 450);
 				//Ù‡Ù†Ø§ Ù†Ù�Ø³ Ø§Ù„Ø´ÙŠØ¡ Ø§Ø°Ø§ ÙƒØ§Ù† ÙˆØ¯ÙŠ Ø§Ø³ØªØ¯Ø¹ÙŠ Ø§ÙˆØ¯ÙŠÙˆÙ„ÙˆØ³ Ù„Ø§Ø²Ù… Ø¬Ù…Ù„Ø© ØªØ±Ø§ÙŠ ÙˆÙƒØ§ØªØ´ Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬
 			try {
 				AudioLose();
@@ -153,11 +158,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 				moveLeft();
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (!play) {
-				Restart(); 
-				// put it in a function for reusability
-			}
+		// if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		// 	if (!play) {
+		// 		Restart(); 
+		// 		// put it in a function for reusability
+		// 	}
+		// }
+		if (e.getKeyCode() == KeyEvent.VK_H) {
+			play = true;
+			ballposX = 120;
+			ballposY = 350;
+			ballXdir = -3;
+			ballYdir = -9;
+			paddleX = 310;
+			score = 0;
+			totalBricks = mapC * mapR;
+			map = new MapGenerator(mapR, mapC);
+			lose = 0;
+			repaint();
+		}
+		if (e.getKeyCode() == KeyEvent.VK_E) {
+           Restart();
 		}
 	}
 	// Drag the paddle
@@ -201,19 +222,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		lose = 0;
 		repaint();
 	}
-	public void hard() {
-		play = true;
-		ballposX = 120;
-		ballposY = 350;
-		ballXdir = -3;
-		ballYdir = -9;
-		paddleX = 310;
-		score = 0;
-		totalBricks = mapC * mapR;
-		map = new MapGenerator(mapR, mapC);
-		lose = 0;
-		repaint();
-	}
+	
+	// public void hard() {
+	// 	play = true;
+	// 	ballposX = 120;
+	// 	ballposY = 350;
+	// 	ballXdir = -3;
+	// 	ballYdir = -9;
+	// 	paddleX = 310;
+	// 	score = 0;
+	// 	totalBricks = mapC * mapR;
+	// 	map = new MapGenerator(mapR, mapC);
+	// 	lose = 0;
+	// 	repaint();
+	// }
 
 	
         public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
