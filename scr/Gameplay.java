@@ -12,11 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener, MouseMotionListener {
-    
-//          Clip AudioRectangle;
-         Clip audiowon;
-         Clip Audiolose;
-	
+
+	Clip audiowon;
+	Clip Audiolose;
 	
 	AudioInputStream C;
     AudioInputStream D;        
@@ -49,15 +47,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	
 	public Gameplay() {
 		map = new MapGenerator(mapR, mapC);
-   //Moving the paddle using the keys
+       //Moving the paddle using the keys
 		addKeyListener(this);
 		setFocusable(true);
 
 		// Moving the paddle using the Mouse
-	    	// addMouseMotionListener(this);
-	    	// setFocusable(false);
+	    	addMouseMotionListener(this);
+	    	setFocusable(true);
 
-		setFocusTraversalKeysEnabled(false);
+		setFocusTraversalKeysEnabled(true);
 		timer = new Timer(delay, this);
 		timer.start();
 	}
@@ -105,14 +103,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			ballYdir = 0;
 			if(score >1000){
 				g.setColor(new Color(79,251,223));
-			g.setFont(new Font("serif", Font.BOLD, 40));
-			g.drawString("You are LUCKY !!", 200, 350);
+				g.setFont(new Font("serif", Font.BOLD, 40));
+				g.drawString("You are LUCKY !!", 200, 350);
+				g.setFont(new Font("serif", Font.BOLD, 20));
+				g.drawString("press E for easy & H for hard", 230, 400);
 			}else{
-			g.setColor(new Color(79,251,223));
-			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("You Won", 280, 350);
-			g.drawString("Scores: " + score, 290, 400);
-			g.drawString("press E for easy & H for hard", 220, 450);
+				g.setColor(new Color(79,251,223));
+				g.setFont(new Font("serif", Font.BOLD, 30));
+				g.drawString("You Won", 280, 350);
+				g.drawString("Scores: " + score, 290, 400);
+				g.setFont(new Font("serif", Font.BOLD, 20));
+				g.drawString("press E for easy & H for hard", 230, 450);
 			}
 			try {
 				AudioWon();
@@ -130,8 +131,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("Game Over", 280, 350);
 			g.drawString("Scores: " + score, 290, 400);
-			g.drawString("press E for easy & H for hard", 220, 450);
-				//Ù‡Ù†Ø§ Ù†Ù�Ø³ Ø§Ù„Ø´ÙŠØ¡ Ø§Ø°Ø§ ÙƒØ§Ù† ÙˆØ¯ÙŠ Ø§Ø³ØªØ¯Ø¹ÙŠ Ø§ÙˆØ¯ÙŠÙˆÙ„ÙˆØ³ Ù„Ø§Ø²Ù… Ø¬Ù…Ù„Ø© ØªØ±Ø§ÙŠ ÙˆÙƒØ§ØªØ´ Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬
+			g.setFont(new Font("serif", Font.BOLD, 20));
+			g.drawString("press E for easy & H for hard", 230, 450);
 			try {
 				AudioLose();
 			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -150,7 +151,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 				moveRight();
 			}
 		}
-
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			if (paddleX < 10) {
 				paddleX = 10;
@@ -158,31 +158,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 				moveLeft();
 			}
 		}
-		// if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-		// 	if (!play) {
-		// 		Restart(); 
-		// 		// put it in a function for reusability
-		// 	}
-		// }
 		if (e.getKeyCode() == KeyEvent.VK_H) {
-			play = true;
-			ballposX = 120;
-			ballposY = 350;
-			ballXdir = -3;
-			ballYdir = -9;
-			paddleX = 310;
-			score = 0;
-			totalBricks = mapC * mapR;
-			map = new MapGenerator(mapR, mapC);
-			lose = 0;
-			repaint();
+		   hard();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_E) {
            Restart();
-		}
+		} 
 	}
 	// Drag the paddle
-   @Override
 	public void mouseDragged(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
@@ -190,7 +173,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		else if (paddleX >= 600)
 			paddleX = 600;
 	}
-// dedect the mouse location
+    // dedect the mouse location
+     @Override
 	public void mouseMoved(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
@@ -198,7 +182,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		else if (paddleX >= 600)
 			paddleX = 580;
 	}
-
 	// pause btn fun
 	public void pause() {
 		if (pauseT % 2 == 0) {
@@ -208,7 +191,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 		pauseT++;
 	}
-
 	public void Restart() {
 		play = true;
 		ballposX = 120;
@@ -222,46 +204,39 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		lose = 0;
 		repaint();
 	}
-	
-	// public void hard() {
-	// 	play = true;
-	// 	ballposX = 120;
-	// 	ballposY = 350;
-	// 	ballXdir = -3;
-	// 	ballYdir = -9;
-	// 	paddleX = 310;
-	// 	score = 0;
-	// 	totalBricks = mapC * mapR;
-	// 	map = new MapGenerator(mapR, mapC);
-	// 	lose = 0;
-	// 	repaint();
-	// }
-
-	
-        public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+	public void hard() {
+		play = true;
+		ballposX = 120;
+		ballposY = 350;
+		ballXdir = -3;
+		ballYdir = -9;
+		paddleX = 310;
+		score = 0;
+		totalBricks = mapC * mapR;
+		map = new MapGenerator(mapR, mapC);
+		lose = 0;
+		repaint();
+	}
+    public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{
-         File whenwon;
-         whenwon = new File("Audio/won2.wav");
-         D = AudioSystem.getAudioInputStream(whenwon);
-         audiowon=AudioSystem.getClip();
-        audiowon.open(D);
-   
-        audiowon.start();
-        audiowon.setMicrosecondPosition(0);
+		File whenwon;
+		whenwon = new File("Audio/won2.wav");
+		D = AudioSystem.getAudioInputStream(whenwon);
+		audiowon=AudioSystem.getClip();
+		audiowon.open(D);
+		audiowon.start();
+		audiowon.setMicrosecondPosition(0);
 	}
 	
-        public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{
         File whenlose = new File("Audio/lose.wav");
         F = AudioSystem.getAudioInputStream(whenlose);
         Audiolose=AudioSystem.getClip();
         Audiolose.open(F);
-   
         Audiolose.start();
         Audiolose.setMicrosecondPosition(0);
 	}
-        
-
 	// useless but needed
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
@@ -305,8 +280,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 						if (ballRect.intersects(brickRect)) {
 							if (map.iGreeen == i && map.jGreen == j) {
 								score += 1000;
-									//Ù‡Ù†Ø§ Ù„Ø§Ø²Ù… Ø§Ø¶ÙŠÙ�Ø© Ø¹Ø´Ø§Ù† ÙŠØ´ØªØºÙ„ Ø§Ù„ØµÙˆØª Ùˆ Ø§Ù„Ø³ØªÙŠØªÙ…ÙŠÙ†Øª Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù†Ù�Ø³Ù‡ Ù„Ø§Ù†ÙŠ Ø§Ø¶Ù�Øª Ø§Ù„ØµÙˆØª Ø¨Ø§Ù„Ù…Ø§Ø¨
-								try {
+                            	try {
 									map.setBrickValue(0, 0, 0);
 								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 									Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
@@ -316,7 +290,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 								if (i == map.map.length - 1 && j == map.map[0].length - 1) {
 									score += totalBricks * 5;
 									map = new MapGenerator(1, 1);
-										//Ù‡Ù†Ø§ Ù„Ø§Ø²Ù… Ø§Ø¶ÙŠÙ�Ø© Ø¹Ø´Ø§Ù† ÙŠØ´ØªØºÙ„ Ø§Ù„ØµÙˆØª Ùˆ Ø§Ù„Ø³ØªÙŠØªÙ…ÙŠÙ†Øª Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù†Ù�Ø³Ù‡ Ù„Ø§Ù†ÙŠ Ø§Ø¶Ù�Øª Ø§Ù„ØµÙˆØª Ø¨Ø§Ù„Ù…Ø§Ø¨
 									try {
 										map.setBrickValue(0, 0, 0);
 									} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -326,7 +299,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 								} else { lose = 1; }
 							} else {
 								score += 5;
-											//Ù‡Ù†Ø§ Ù„Ø§Ø²Ù… Ø§Ø¶ÙŠÙ�Ø© Ø¹Ø´Ø§Ù† ÙŠØ´ØªØºÙ„ Ø§Ù„ØµÙˆØª Ùˆ Ø§Ù„Ø³ØªÙŠØªÙ…ÙŠÙ†Øª Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù†Ù�Ø³Ù‡ Ù„Ø§Ù†ÙŠ Ø§Ø¶Ù�Øª Ø§Ù„ØµÙˆØª Ø¨Ø§Ù„Ù…Ø§Ø¨
 								try {
 									map.setBrickValue(0, i, j);
 								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
