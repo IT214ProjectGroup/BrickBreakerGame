@@ -219,7 +219,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
         public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{
          File whenwon;
-         whenwon = new File("won2.wav");
+         whenwon = new File("Audio/won2.wav");
          D = AudioSystem.getAudioInputStream(whenwon);
          audiowon=AudioSystem.getClip();
         audiowon.open(D);
@@ -230,7 +230,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	
         public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{
-        File whenlose = new File("lose.wav");
+        File whenlose = new File("Audio/lose.wav");
         F = AudioSystem.getAudioInputStream(whenlose);
         Audiolose=AudioSystem.getClip();
         Audiolose.open(F);

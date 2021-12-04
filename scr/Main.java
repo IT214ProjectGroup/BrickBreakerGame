@@ -11,10 +11,12 @@ import javax.swing.JFrame;
 public class Main {
 	public static void main(String[] args) {
 		JFrame frame;
-		JButton Restart, Pause;// new
-		JComboBox comboBox = new JComboBox();
-        comboBox.addItem("easy");
-        comboBox.addItem("hard");
+		// JButton Restart;
+		JButton Pause;// new
+		String [] levels = {"Easy", "Hard"};
+		JComboBox<String> comboBox = new JComboBox<>(levels);
+        // comboBox.addItem("easy");
+        // comboBox.addItem("hard");
 		// objects
 		frame = new JFrame();
 		Gameplay gamePlay = new Gameplay();
@@ -36,11 +38,11 @@ public class Main {
 		
 		comboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                JComboBox comboBox = (JComboBox) event.getSource();
+                // JComboBox comboBox = (JComboBox) event.getSource();
                 Object selected = comboBox.getSelectedItem();
-                if(selected.toString().equals("easy"))
+                if(selected.equals("Easy"))
                 	gamePlay.Restart();
-                else if(selected.toString().equals("hard"))
+                else if(selected.equals("Hard"))
                 	gamePlay.hard();
             }
         });
