@@ -13,10 +13,11 @@ import javax.swing.Timer;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener, MouseMotionListener {
     
-//  Clip AudioRectangle;
-	Clip audiowon;
-	Clip Audiolose;
-
+//          Clip AudioRectangle;
+         Clip audiowon;
+         Clip Audiolose;
+	
+	
 	AudioInputStream C;
     AudioInputStream D;        
     AudioInputStream F;
@@ -30,10 +31,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 	private int paddleX = 310;
 
-	private int ballposX = 350;
-	private int ballposY = 450;
-	private int ballXdir = -1;
-	private int ballYdir = -2;
+	private int ballposX = 120;
+	private int ballposY = 350;
+	private float ballXdir = -1;
+	private float ballYdir = -2;
 
 	int lose = 0;
 
@@ -62,7 +63,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		// background
 		g.setColor(Color.black);
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("image/wonder.gif");
+		ImageIcon background = new ImageIcon("wonder.gif");
 		Image img = background.getImage();
 		g.drawImage(img, 0, 0, 700, 600, null);
 
@@ -100,11 +101,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			ballXdir = 0;
 			ballYdir = 0;
 			if(score >1000){
-			g.setColor(new Color(79,251,223));
+				g.setColor(new Color(79,251,223));
 			g.setFont(new Font("serif", Font.BOLD, 40));
 			g.drawString("You are LUCKY !!", 200, 350);
-			} 
-			else {
+			}else{
 			g.setColor(new Color(79,251,223));
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("You Won", 280, 350);
@@ -126,7 +126,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("Game Over", 280, 350);
 			g.drawString("Scores: " + score, 290, 400);
-				//هنا نفس الشيء اذا كان ودي استدعي اوديولوس لازم جملة تراي وكاتش من البرنامج
+				//Ù‡Ù†Ø§ Ù†Ù�Ø³ Ø§Ù„Ø´ÙŠØ¡ Ø§Ø°Ø§ ÙƒØ§Ù† ÙˆØ¯ÙŠ Ø§Ø³ØªØ¯Ø¹ÙŠ Ø§ÙˆØ¯ÙŠÙˆÙ„ÙˆØ³ Ù„Ø§Ø²Ù… Ø¬Ù…Ù„Ø© ØªØ±Ø§ÙŠ ÙˆÙƒØ§ØªØ´ Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬
 			try {
 				AudioLose();
 			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -138,29 +138,29 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 	public void keyPressed(KeyEvent e) {
 
-	if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-		if (paddleX >= 600) {
-			paddleX = 600;
-		} else {
-			moveRight();
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			if (paddleX >= 600) {
+				paddleX = 600;
+			} else {
+				moveRight();
+			}
 		}
-	}
 
-	if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-		if (paddleX < 10) {
-			paddleX = 10;
-		} else {
-			moveLeft();
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			if (paddleX < 10) {
+				paddleX = 10;
+			} else {
+				moveLeft();
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (!play) {
+				Restart(); 
+				// put it in a function for reusability
+			}
 		}
 	}
-	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-		if (!play) {
-			Restart(); 
-			// put it in a function for reusability
-		}
-		}
-	}
-	 // Drag the paddle
+	// Drag the paddle
    @Override
 	public void mouseDragged(MouseEvent e) { 
 		paddleX = e.getX();
@@ -169,7 +169,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		else if (paddleX >= 600)
 			paddleX = 600;
 	}
-     // dedect the mouse location
+// dedect the mouse location
 	public void mouseMoved(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
@@ -177,7 +177,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		else if (paddleX >= 600)
 			paddleX = 580;
 	}
-	// pause btn function
+
+	// pause btn fun
 	public void pause() {
 		if (pauseT % 2 == 0) {
 			timer.stop();
@@ -186,11 +187,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 		pauseT++;
 	}
+
 	public void Restart() {
-		timer.start();
 		play = true;
-		ballposX = 350;
-		ballposY = 450;
+		ballposX = 120;
+		ballposY = 350;
 		ballXdir = -1;
 		ballYdir = -2;
 		paddleX = 310;
@@ -200,40 +201,42 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		lose = 0;
 		repaint();
 	}
-        //هنا اذا كان نبي نحط صوت اذا ضربت الكورة المستطيل تحت
-//        public void AudioRectangle() throws UnsupportedAudioFileException, IOException, LineUnavailableException
-//	{
-//		  
-//        File a = new File("Audio/audio4.wav");
-//        C = AudioSystem.getAudioInputStream(a);
-//        AudioRectangle=AudioSystem.getClip();
-//        AudioRectangle.open(C);
-//   
-//        AudioRectangle.start();
-//        AudioRectangle.setMicrosecondPosition(0);
-//	}
-	
-     public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
-	{
-		File whenwon;
-		whenwon = new File("Audio/won2.wav");
-		D = AudioSystem.getAudioInputStream(whenwon);
-		audiowon=AudioSystem.getClip();
-		audiowon.open(D);
+	public void hard() {
+		play = true;
+		ballposX = 120;
+		ballposY = 350;
+		ballXdir = -3;
+		ballYdir = -9;
+		paddleX = 310;
+		score = 0;
+		totalBricks = mapC * mapR;
+		map = new MapGenerator(mapR, mapC);
+		lose = 0;
+		repaint();
+	}
 
-		audiowon.start();
-		audiowon.setMicrosecondPosition(0);
+	
+        public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+	{
+         File whenwon;
+         whenwon = new File("won2.wav");
+         D = AudioSystem.getAudioInputStream(whenwon);
+         audiowon=AudioSystem.getClip();
+        audiowon.open(D);
+   
+        audiowon.start();
+        audiowon.setMicrosecondPosition(0);
 	}
 	
-	public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
-     {
-		File whenlose = new File("Audio/lose.wav");
-		F = AudioSystem.getAudioInputStream(whenlose);
-		Audiolose=AudioSystem.getClip();
-		Audiolose.open(F);
-
-		Audiolose.start();
-		Audiolose.setMicrosecondPosition(0);
+        public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+	{
+        File whenlose = new File("lose.wav");
+        F = AudioSystem.getAudioInputStream(whenlose);
+        Audiolose=AudioSystem.getClip();
+        Audiolose.open(F);
+   
+        Audiolose.start();
+        Audiolose.setMicrosecondPosition(0);
 	}
         
 
@@ -280,7 +283,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 						if (ballRect.intersects(brickRect)) {
 							if (map.iGreeen == i && map.jGreen == j) {
 								score += 1000;
-									//هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
+									//Ù‡Ù†Ø§ Ù„Ø§Ø²Ù… Ø§Ø¶ÙŠÙ�Ø© Ø¹Ø´Ø§Ù† ÙŠØ´ØªØºÙ„ Ø§Ù„ØµÙˆØª Ùˆ Ø§Ù„Ø³ØªÙŠØªÙ…ÙŠÙ†Øª Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù†Ù�Ø³Ù‡ Ù„Ø§Ù†ÙŠ Ø§Ø¶Ù�Øª Ø§Ù„ØµÙˆØª Ø¨Ø§Ù„Ù…Ø§Ø¨
 								try {
 									map.setBrickValue(0, 0, 0);
 								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -291,7 +294,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 								if (i == map.map.length - 1 && j == map.map[0].length - 1) {
 									score += totalBricks * 5;
 									map = new MapGenerator(1, 1);
-										//هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
+										//Ù‡Ù†Ø§ Ù„Ø§Ø²Ù… Ø§Ø¶ÙŠÙ�Ø© Ø¹Ø´Ø§Ù† ÙŠØ´ØªØºÙ„ Ø§Ù„ØµÙˆØª Ùˆ Ø§Ù„Ø³ØªÙŠØªÙ…ÙŠÙ†Øª Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù†Ù�Ø³Ù‡ Ù„Ø§Ù†ÙŠ Ø§Ø¶Ù�Øª Ø§Ù„ØµÙˆØª Ø¨Ø§Ù„Ù…Ø§Ø¨
 									try {
 										map.setBrickValue(0, 0, 0);
 									} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -301,7 +304,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 								} else { lose = 1; }
 							} else {
 								score += 5;
-											//هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
+											//Ù‡Ù†Ø§ Ù„Ø§Ø²Ù… Ø§Ø¶ÙŠÙ�Ø© Ø¹Ø´Ø§Ù† ÙŠØ´ØªØºÙ„ Ø§Ù„ØµÙˆØª Ùˆ Ø§Ù„Ø³ØªÙŠØªÙ…ÙŠÙ†Øª Ù…Ù† Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù†Ù�Ø³Ù‡ Ù„Ø§Ù†ÙŠ Ø§Ø¶Ù�Øª Ø§Ù„ØµÙˆØª Ø¨Ø§Ù„Ù…Ø§Ø¨
 								try {
 									map.setBrickValue(0, i, j);
 								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -318,6 +321,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 							else {
 								ballYdir = -ballYdir;
 							}
+
 							break A;
 						}
 					}
@@ -340,3 +344,4 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		}
 	}
 }
+
