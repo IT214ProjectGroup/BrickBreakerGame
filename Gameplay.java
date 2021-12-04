@@ -94,19 +94,25 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
 
 		// when you won the game
-		if (totalBricks <= 0) {
+		if (totalBricks <= 2) {
 			play = false;
 			ballXdir = 0;
 			ballYdir = 0;
+			if(score >1000){
+				g.setColor(new Color(79,251,223));
+			g.setFont(new Font("serif", Font.BOLD, 40));
+			g.drawString("You are LUCKY !!", 200, 350);
+			}else{
 			g.setColor(new Color(79,251,223));
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("You Won", 280, 350);
 			g.drawString("Scores: " + score, 290, 400);
-                    try {
-                        AudioWon();
-                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-                        Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+			}
+			try {
+				AudioWon();
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+				Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
 
 		// when you lose the game
@@ -118,12 +124,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("Game Over", 280, 350);
 			g.drawString("Scores: " + score, 290, 400);
-                        //هنا نفس الشيء اذا كان ودي استدعي اوديولوس لازم جملة تراي وكاتش من البرنامج
-                    try {
-                        AudioLose();
-                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-                        Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+				//هنا نفس الشيء اذا كان ودي استدعي اوديولوس لازم جملة تراي وكاتش من البرنامج
+			try {
+				AudioLose();
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+				Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
 		g.dispose();
 	}
@@ -273,33 +279,33 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 						if (ballRect.intersects(brickRect)) {
 							if (map.iGreeen == i && map.jGreen == j) {
 								score += 1000;
-                                                             //هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
-                                                            try {
-                                                                map.setBrickValue(0, 0, 0);
-                                                            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-                                                                Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
-                                                            }
+									//هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
+								try {
+									map.setBrickValue(0, 0, 0);
+								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+									Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+								}
 								totalBricks = 0;
 							} else if (map.iRed == i && map.jRed == j) {
 								if (i == map.map.length - 1 && j == map.map[0].length - 1) {
 									score += totalBricks * 5;
 									map = new MapGenerator(1, 1);
-                                                                        //هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
-                                                                    try {
-                                                                        map.setBrickValue(0, 0, 0);
-                                                                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-                                                                        Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
-                                                                    }
+										//هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
+									try {
+										map.setBrickValue(0, 0, 0);
+									} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+										Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+									}
 									totalBricks = 0;
 								} else { lose = 1; }
 							} else {
 								score += 5;
-                                                                      //هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
-                                                            try {
-                                                                map.setBrickValue(0, i, j);
-                                                            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-                                                                Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
-                                                            }
+											//هنا لازم اضيفة عشان يشتغل الصوت و الستيتمينت من البرنامج نفسه لاني اضفت الصوت بالماب
+								try {
+									map.setBrickValue(0, i, j);
+								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+									Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+								}
 								totalBricks--;
 							}
 
