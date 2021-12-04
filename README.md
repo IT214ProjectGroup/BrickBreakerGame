@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 # <p align="center"> <img src="https://user-images.githubusercontent.com/91504512/144716834-dbfff490-4594-4fa4-a352-8db6a686a292.png" width="70%"> </p>
 <p align="center"> Brick Breaker is a classic in the world of video games,
 We take it with a basic functions and enhanced it.</p>
@@ -11,11 +11,6 @@ We take it with a basic functions and enhanced it.</p>
   - mouse motion 
 - Hitting the stone twice to break it.
 > Anhar 
-=======
- ![This is an image]("\banner.jpg")
-#
-Brick Breaker game consists of bricks aligned at the top of the screen. The player is represented as a tiny ball that is placed on a small platform at the bottom of the screen. The platform can be moved around from left to right on the screen with the help of arrow keys on the keyboard. The player uses the platform to keep the ball running. The goal is to break the bricks without missing the ball with your platform.
->>>>>>> Stashed changes
 
 - Lucky stones 
   - randomly appearing, causing an immediate win/lose .
