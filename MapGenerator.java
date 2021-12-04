@@ -7,12 +7,12 @@ import java.util.Random;
 import javax.sound.sampled.*;
 
 public class MapGenerator {
-        Clip break1;
+    Clip break1;
 	Clip break2;
 	
-	
 	AudioInputStream A;
-        AudioInputStream B;
+    AudioInputStream B;
+
 	public int map[][];
 	public int brickWidth;
 	public int brickHeight;
@@ -67,11 +67,10 @@ public class MapGenerator {
 		}else
 		map[row][col] = value;
                 Audio();
-	}
-        
+	}  
         public void Audio() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{ 
-        File file = new File("audioForFirstHit.wav");
+        File file = new File("Audio/audioForFirstHit.wav");
         A = AudioSystem.getAudioInputStream(file);
         break1=AudioSystem.getClip();
         break1.open(A);
@@ -81,7 +80,7 @@ public class MapGenerator {
         
         public void Audio2() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{  
-        File file2 = new File("audioForSecondHit.wav");
+        File file2 = new File("Audio/audioForSecondHit.wav");
         B= AudioSystem.getAudioInputStream(file2);
         break2=AudioSystem.getClip();
         break2.open(B);

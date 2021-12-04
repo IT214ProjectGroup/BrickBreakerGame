@@ -11,14 +11,13 @@ import javax.swing.Timer;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener, MouseMotionListener {
     
-//          Clip AudioRectangle;
-         Clip audiowon;
-         Clip Audiolose;
-	
-	
+//  Clip AudioRectangle;
+	Clip audiowon;
+	Clip Audiolose;
+
 	AudioInputStream C;
-        AudioInputStream D;        
-        AudioInputStream F;
+    AudioInputStream D;        
+    AudioInputStream F;
 	private boolean play = false;
 	private int score = 0;
 
@@ -29,8 +28,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 	private int paddleX = 310;
 
-	private int ballposX = 120;
-	private int ballposY = 350;
+	private int ballposX = 350;
+	private int ballposY = 450;
 	private int ballXdir = -1;
 	private int ballYdir = -2;
 
@@ -61,7 +60,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		// background
 		g.setColor(Color.black);
 		g.fillRect(1, 1, 692, 580);
-		ImageIcon background = new ImageIcon("wonder.gif");
+		ImageIcon background = new ImageIcon("image/wonder.gif");
 		Image img = background.getImage();
 		g.drawImage(img, 0, 0, 700, 600, null);
 
@@ -99,10 +98,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 			ballXdir = 0;
 			ballYdir = 0;
 			if(score >1000){
-				g.setColor(new Color(79,251,223));
+			g.setColor(new Color(79,251,223));
 			g.setFont(new Font("serif", Font.BOLD, 40));
 			g.drawString("You are LUCKY !!", 200, 350);
-			}else{
+			} 
+			else {
 			g.setColor(new Color(79,251,223));
 			g.setFont(new Font("serif", Font.BOLD, 30));
 			g.drawString("You Won", 280, 350);
@@ -136,29 +136,29 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			if (paddleX >= 600) {
-				paddleX = 600;
-			} else {
-				moveRight();
-			}
-		}
-
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			if (paddleX < 10) {
-				paddleX = 10;
-			} else {
-				moveLeft();
-			}
-		}
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (!play) {
-				Restart(); 
-				// put it in a function for reusability
-			}
+	if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		if (paddleX >= 600) {
+			paddleX = 600;
+		} else {
+			moveRight();
 		}
 	}
-	// Drag the paddle
+
+	if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		if (paddleX < 10) {
+			paddleX = 10;
+		} else {
+			moveLeft();
+		}
+	}
+	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		if (!play) {
+			Restart(); 
+			// put it in a function for reusability
+		}
+		}
+	}
+	 // Drag the paddle
    @Override
 	public void mouseDragged(MouseEvent e) { 
 		paddleX = e.getX();
@@ -167,7 +167,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		else if (paddleX >= 600)
 			paddleX = 600;
 	}
-// dedect the mouse location
+     // dedect the mouse location
 	public void mouseMoved(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
@@ -175,8 +175,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		else if (paddleX >= 600)
 			paddleX = 580;
 	}
-
-	// pause btn fun
+	// pause btn function
 	public void pause() {
 		if (pauseT % 2 == 0) {
 			timer.stop();
@@ -185,11 +184,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 
 		pauseT++;
 	}
-
 	public void Restart() {
+		timer.start();
 		play = true;
-		ballposX = 120;
-		ballposY = 350;
+		ballposX = 350;
+		ballposY = 450;
 		ballXdir = -1;
 		ballYdir = -2;
 		paddleX = 310;
@@ -203,7 +202,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 //        public void AudioRectangle() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 //	{
 //		  
-//        File a = new File("audio4.wav");
+//        File a = new File("Audio/audio4.wav");
 //        C = AudioSystem.getAudioInputStream(a);
 //        AudioRectangle=AudioSystem.getClip();
 //        AudioRectangle.open(C);
@@ -212,27 +211,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 //        AudioRectangle.setMicrosecondPosition(0);
 //	}
 	
-        public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+     public void AudioWon() throws UnsupportedAudioFileException, IOException, LineUnavailableException
 	{
-         File whenwon;
-         whenwon = new File("won2.wav");
-         D = AudioSystem.getAudioInputStream(whenwon);
-         audiowon=AudioSystem.getClip();
-        audiowon.open(D);
-   
-        audiowon.start();
-        audiowon.setMicrosecondPosition(0);
+		File whenwon;
+		whenwon = new File("Audio/won2.wav");
+		D = AudioSystem.getAudioInputStream(whenwon);
+		audiowon=AudioSystem.getClip();
+		audiowon.open(D);
+
+		audiowon.start();
+		audiowon.setMicrosecondPosition(0);
 	}
 	
-        public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
-	{
-        File whenlose = new File("lose.wav");
-        F = AudioSystem.getAudioInputStream(whenlose);
-        Audiolose=AudioSystem.getClip();
-        Audiolose.open(F);
-   
-        Audiolose.start();
-        Audiolose.setMicrosecondPosition(0);
+	public void AudioLose() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+     {
+		File whenlose = new File("Audio/lose.wav");
+		F = AudioSystem.getAudioInputStream(whenlose);
+		Audiolose=AudioSystem.getClip();
+		Audiolose.open(F);
+
+		Audiolose.start();
+		Audiolose.setMicrosecondPosition(0);
 	}
         
 
@@ -317,7 +316,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 							else {
 								ballYdir = -ballYdir;
 							}
-
 							break A;
 						}
 					}
