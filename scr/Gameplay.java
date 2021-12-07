@@ -15,13 +15,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	Clip audiowon;
 	Clip Audiolose;
 	
-	AudioInputStream C;
     AudioInputStream D;        
     AudioInputStream F;
 	private boolean play = false;
 	private int score = 0;
 
-	private int totalBricks = 48;
+
 
 	private Timer timer;
 	private int delay = 8;
@@ -36,9 +35,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 	int lose = 0;
 
 	//map rows and colomns 
-	int mapR = 7;
-	int mapC = 9; 
-
+	int mapR = 5;
+	int mapC = 4; 
+	private int totalBricks =mapC * mapR;
     //for changing the pause btn state 
 	private int pauseT = 0;
 
@@ -50,9 +49,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		addKeyListener(this);
 		setFocusable(true);
 
-		// Moving the paddle using the Mouse
-	    	addMouseMotionListener(this);
-	    	setFocusable(true);
+	// Moving the paddle using the Mouse
+		addMouseMotionListener(this);
+		setFocusable(true);
 
 		setFocusTraversalKeysEnabled(true);
 		timer = new Timer(delay, this);
@@ -198,6 +197,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		ballYdir = -2;
 		paddleX = 310;
 		score = 0;
+		mapR = 5;
+		mapC = 4;
 		totalBricks = mapC * mapR;
 		map = new MapGenerator(mapR, mapC);
 		lose = 0;
@@ -211,6 +212,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		ballYdir = -9;
 		paddleX = 310;
 		score = 0;
+		mapR = 10 ;
+		mapC = 8;
 		totalBricks = mapC * mapR;
 		map = new MapGenerator(mapR, mapC);
 		lose = 0;
@@ -280,17 +283,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 							if (map.iGreeen == i && map.jGreen == j) {
 								score += 1000;
                             	try {
-									map.setBrickValue(0, 0, 0);
+									map.setBrickValue(0, i, j);
 								} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 									Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
 								}
 								totalBricks = 0;
 							} else if (map.iRed == i && map.jRed == j) {
 								if (i == map.map.length - 1 && j == map.map[0].length - 1) {
-									score += totalBricks * 5;
-									map = new MapGenerator(1, 1);
+									
 									try {
-										map.setBrickValue(0, 0, 0);
+										map.setBrickValue(0, i, j);
 									} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
 										Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
 									}
