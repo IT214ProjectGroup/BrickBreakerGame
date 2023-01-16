@@ -1,4 +1,3 @@
-// package scr;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.File;
@@ -84,15 +83,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		g.setColor(Color.white);
 		g.fillRect(paddleX, 550, 100, 10);
 		((Graphics2D) g).setStroke(new BasicStroke(3));
-		((Graphics2D) g).setColor(new Color(32, 7, 73));
-		((Graphics2D) g).drawRect(paddleX, 550, 100, 8);
+		g.setColor(new Color(32, 7, 73));
+		g.drawRect(paddleX, 550, 100, 8);
 
 		// the ball
 		g.setColor(Color.WHITE);
 		g.fillOval(ballposX, ballposY, 20, 20);
 		((Graphics2D) g).setStroke(new BasicStroke(4));
-		((Graphics2D) g).setColor(new Color(244,180,73));
-		((Graphics2D) g).drawOval(ballposX, ballposY, 20, 20);
+		g.setColor(new Color(244,180,73));
+		g.drawOval(ballposX, ballposY, 20, 20);
 
 		// when you won the game
 		if (totalBricks <= 2) {
@@ -164,6 +163,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Mou
 		} 
 	}
 	// Drag the paddle
+	@Override
 	public void mouseDragged(MouseEvent e) { 
 		paddleX = e.getX();
 		if (paddleX < 10)
